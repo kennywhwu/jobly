@@ -14,7 +14,6 @@ class Companies extends Component {
   async componentDidMount() {
     // [{handle:, name:...},{},...]
     let results = await JoblyApi.getCompanies();
-    console.log(results);
     this.setState({ companies: results });
   }
 
