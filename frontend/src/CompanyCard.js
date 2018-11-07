@@ -1,3 +1,5 @@
+// CompanyCard for specific company information
+
 import React, { Component } from 'react';
 
 class CompanyCard extends Component {

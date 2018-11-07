@@ -1,3 +1,5 @@
+// Routes component to define url renders
+
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Companies from './Companies';
@@ -17,10 +19,10 @@ class Routes extends Component {
           path="/companies/:handle"
           render={props => <Company {...props} />}
         />
-        <Route exact path="/jobs" render={props => <Jobs {...props} />} />
+        <Route exact path="/jobs" render={() => <Jobs />} />
         <Route exact path="/login" render={props => <Login {...props} />} />
         <Route exact path="/profile" render={props => <Profile {...props} />} />
-        <Route path="/" render={props => <Home {...props} />} />
+        <Route exact path="/" render={props => <Home {...props} />} />
         <Redirect to="/" />
       </Switch>
     );

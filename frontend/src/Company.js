@@ -1,3 +1,5 @@
+// Company component for inidividual company and respective jobs
+
 import React, { Component } from 'react';
 import JoblyApi from './JoblyApi';
 import JobCard from './JobCard';

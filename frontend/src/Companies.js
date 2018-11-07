@@ -1,3 +1,5 @@
+// Companies component for list of companies
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import JoblyApi from './JoblyApi';

@@ -1,3 +1,5 @@
+// Search form component
+
 import React, { Component } from 'react';
 
 class Search extends Component {

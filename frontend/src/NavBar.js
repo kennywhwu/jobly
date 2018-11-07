@@ -1,3 +1,5 @@
+// NavBar component for navigating pages
+
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 

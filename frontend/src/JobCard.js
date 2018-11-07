@@ -1,3 +1,5 @@
+// JobCard component for individual jobs
+
 import React, { Component } from 'react';
 
 class JobCard extends Component {

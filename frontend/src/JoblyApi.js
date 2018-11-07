@@ -1,3 +1,5 @@
+// Helper class to make axios requests to database fron front-end
+
 import axios from 'axios';
 const BASE_URL = 'http://localhost:3001';
 
@@ -45,6 +47,21 @@ class JoblyApi {
   static async getCompaniesSearch(name) {
     let res = await this.request(`companies?search=${name}`);
     return res.companies;
+  }
+
+  static async getJob(handle) {
+    let res = await this.request(`jobs/${handle}`);
+    return res.job;
+  }
+
+  static async getJobs() {
+    let res = await this.request(`jobs`);
+    return res.jobs;
+  }
+
+  static async getJobsSearch(title) {
+    let res = await this.request(`jobs?search=${title}`);
+    return res.jobs;
   }
 }
 
