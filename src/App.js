@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navbar from './Navbar';
+import NavBar from './NavBar';
 import Routes from './Routes';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
+        <NavBar />
         <Routes />
       </div>
     );
