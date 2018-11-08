@@ -16,7 +16,6 @@ function authRequired(req, res, next) {
     const tokenStr = req.body._token || req.query._token;
     console.log('tokenSt', tokenStr);
     let token = jwt.verify(tokenStr, SECRET);
-    console.log('verified token ', token);
     req.username = token.username;
     return next();
   } catch (err) {

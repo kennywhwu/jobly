@@ -12,9 +12,6 @@ class JoblyApi {
     //   '7jfHv9wJhzD4ndpuBkSzBan8Nirb6UY';
     let _token = JSON.parse(localStorage.getItem('token'));
 
-    console.log('_token ,', _token);
-    // console.log('_token1 ,', _token1);
-
     console.debug('API Call:', endpoint, params, verb);
 
     let q;
@@ -70,7 +67,6 @@ class JoblyApi {
 
   static async login(user) {
     let res = await this.request(`login`, user, 'post');
-    console.log(res);
     return res.token;
   }
 

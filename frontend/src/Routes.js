@@ -13,7 +13,6 @@ import LoggedInRoute from './LoggedInRoute';
 
 class Routes extends Component {
   render() {
-    console.log('Routes ran', this.props.currentUser);
     return (
       <Switch>
         <PrivateRoute
@@ -32,9 +31,10 @@ class Routes extends Component {
           exact
           path="/jobs"
           currentUser={this.props.currentUser}
+          fetchUser={this.props.fetchUser}
           render={() => <Jobs />}
         />
-        <Route
+        <LoggedInRoute
           exact
           path="/login"
           currentUser={this.props.currentUser}
@@ -48,7 +48,11 @@ class Routes extends Component {
           currentUser={this.props.currentUser}
           render={props => <Profile {...props} />}
         />
-        <Route exact path="/" render={props => <Home {...props} />} />
+        <Route
+          exact
+          path="/"
+          render={props => <Home {...props} clearUser={this.props.clearUser} />}
+        />
         <Redirect to="/" />
       </Switch>
     );

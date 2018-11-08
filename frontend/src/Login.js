@@ -10,7 +10,6 @@ class Login extends Component {
   }
 
   async login(user) {
-    console.log('login ran', user);
     let token = await JoblyApi.login(user);
     this.setState({ token });
     localStorage.setItem('token', JSON.stringify(token));

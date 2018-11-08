@@ -9,44 +9,45 @@ import JoblyApi from './JoblyApi';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { currentUser: null };
+    this.state = { currentUser: null, isLoading: true };
     this.fetchUser = this.fetchUser.bind(this);
+    this.clearUser = this.clearUser.bind(this);
   }
 
   async componentDidMount() {
-    // localStorage.removeItem('token');
-    console.log('localStorage token', localStorage.getItem('token'));
-    let token = JSON.parse(localStorage.getItem('token'));
-
-    if (token !== null) {
-      let payload = jwt.decode(token.token);
-      let currentUser = await JoblyApi.getUser(payload.username);
-      this.setState({ currentUser });
-    }
+    this.fetchUser();
   }
 
   async fetchUser() {
     let token = JSON.parse(localStorage.getItem('token'));
-    console.log('token ', token);
     if (token !== null) {
       let payload = jwt.decode(token);
-      console.log('payload ', payload);
       let currentUser = await JoblyApi.getUser(payload.username);
-      console.log('currentUser ', currentUser);
       this.setState({ currentUser });
-      console.log('fetchUser ran ', this.state.currentUser);
     }
+    this.setState({ isLoading: false });
+  }
+
+  async clearUser() {
+    localStorage.removeItem('token');
+    this.setState({ currentUser: null });
   }
 
   render() {
-    console.log('App ran', this.state.currentUser);
     return (
       <div className="App">
-        <NavBar currentUser={this.state.currentUser} />
-        <Routes
-          currentUser={this.state.currentUser}
-          fetchUser={this.fetchUser}
-        />
+        {!this.state.isLoading ? (
+          <div>
+            <NavBar currentUser={this.state.currentUser} />
+            <Routes
+              currentUser={this.state.currentUser}
+              fetchUser={this.fetchUser}
+              clearUser={this.clearUser}
+            />
+          </div>
+        ) : (
+          <h1>Loading...</h1>
+        )}
       </div>
     );
   }

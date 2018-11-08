@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 
 class NavBar extends Component {
   render() {
-    console.log('this.props.currentUser ', this.props.currentUser);
     return (
       <nav>
         {this.props.currentUser !== null ? (

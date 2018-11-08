@@ -6,8 +6,8 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: ''
+      username: 'testuser',
+      password: 'secret'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,6 +36,7 @@ class LoginForm extends Component {
           id="username"
           onChange={this.handleChange}
           placeholder="Enter search term..."
+          value="testuser"
         />
         <label htmlFor="password">Password</label>
         <input
@@ -44,6 +45,7 @@ class LoginForm extends Component {
           id="password"
           onChange={this.handleChange}
           placeholder="Enter search term..."
+          value="secret"
         />
         {}
         <button>Submit</button>
