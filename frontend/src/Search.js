@@ -23,7 +23,6 @@ class Search extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.handleSearch(this.state.name);
-    this.props.history.push('/');
   }
 
   render() {

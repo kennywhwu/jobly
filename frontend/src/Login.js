@@ -5,7 +5,7 @@ import JoblyApi from './JoblyApi';
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { type: 'login' };
     this.login = this.login.bind(this);
   }
 
@@ -13,18 +13,15 @@ class Login extends Component {
     console.log('login ran', user);
     let token = await JoblyApi.login(user);
     this.setState({ token });
-    localStorage.setItem('token', JSON.stringify({ token }));
-    console.log(
-      'pull localstorage ',
-      JSON.parse(localStorage.getItem('token'))
-    );
-    this.props.history.push('/');
+    localStorage.setItem('token', JSON.stringify(token));
+    this.props.fetchUser();
+    this.props.history.push('/companies');
   }
 
   render() {
     return (
       <div className="Login">
-        <LoginForm handleLogin={this.login} />
+        <LoginForm handleLogin={this.login} type={this.state.type} />
       </div>
     );
   }

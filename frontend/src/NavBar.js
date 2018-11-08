@@ -5,12 +5,19 @@ import { NavLink } from 'react-router-dom';
 
 class NavBar extends Component {
   render() {
+    console.log('this.props.currentUser ', this.props.currentUser);
     return (
       <nav>
-        <NavLink to="/companies">Companies</NavLink>
-        <NavLink to="/jobs">Jobs</NavLink>
-        <NavLink to="/profile">Profile</NavLink>
-        <NavLink to="/">Logout</NavLink>
+        {this.props.currentUser !== null ? (
+          <span>
+            <NavLink to="/companies">Companies</NavLink>
+            <NavLink to="/jobs">Jobs</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
+            <NavLink to="/">Logout</NavLink>
+          </span>
+        ) : (
+          <NavLink to="/login">Login</NavLink>
+        )}
       </nav>
     );
   }

@@ -45,6 +45,7 @@ class LoginForm extends Component {
           onChange={this.handleChange}
           placeholder="Enter search term..."
         />
+        {}
         <button>Submit</button>
       </form>
     );
