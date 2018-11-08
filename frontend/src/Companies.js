@@ -1,7 +1,7 @@
 // Companies component for list of companies
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import './Companies.css';
 import JoblyApi from './JoblyApi';
 import CompanyCard from './CompanyCard';
 import Search from './Search';
@@ -13,12 +13,14 @@ class Companies extends Component {
     this.filterCompanies = this.filterCompanies.bind(this);
   }
 
+  // Get list of companies when component first mounts
   async componentDidMount() {
     // [{handle:, name:...},{},...]
     let results = await JoblyApi.getCompanies();
     this.setState({ companies: results });
   }
 
+  // Filter rendered companies list based on search term
   async filterCompanies(name) {
     let results = await JoblyApi.getCompaniesSearch(name);
     this.setState({ companies: results });
@@ -27,12 +29,10 @@ class Companies extends Component {
   render() {
     return (
       <div className="Companies">
-        Companies
+        <h3>Companies</h3>
         <Search handleSearch={this.filterCompanies} />
         {this.state.companies.map(company => (
-          <Link key={company.handle} to={`/companies/${company.handle}`}>
-            <CompanyCard key={company.handle} company={company} />
-          </Link>
+          <CompanyCard key={company.handle} company={company} />
         ))}
       </div>
     );

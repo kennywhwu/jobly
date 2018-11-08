@@ -1,4 +1,4 @@
-// LoginForm form component
+// LoginForm form component for login and signup
 
 import React, { Component } from 'react';
 
@@ -31,53 +31,72 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          onChange={this.handleChange}
-          placeholder="Username"
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          onChange={this.handleChange}
-          placeholder="Password"
-        />
+      <form
+        onSubmit={this.handleSubmit}
+        style={{ margin: '10px auto 10px auto', width: '40%' }}
+      >
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            className="form-control"
+            type="text"
+            name="username"
+            id="username"
+            onChange={this.handleChange}
+            placeholder="Username"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            className="form-control"
+            type="password"
+            name="password"
+            id="password"
+            onChange={this.handleChange}
+            placeholder="Password"
+          />
+        </div>
         {this.props.type === 'signup' ? (
           <div>
-            <label htmlFor="first_name">First Name</label>
-            <input
-              type="text"
-              name="first_name"
-              id="first_name"
-              onChange={this.handleChange}
-              placeholder="First Name"
-            />
-            <label htmlFor="last_name">Last Name</label>
-            <input
-              type="text"
-              name="last_name"
-              id="last_name"
-              onChange={this.handleChange}
-              placeholder="Last Name"
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              onChange={this.handleChange}
-              placeholder="Email"
-            />
+            <div className="form-group">
+              <label htmlFor="first_name">First Name</label>
+              <input
+                className="form-control"
+                type="text"
+                name="first_name"
+                id="first_name"
+                onChange={this.handleChange}
+                placeholder="First Name"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="last_name">Last Name</label>
+              <input
+                className="form-control"
+                type="text"
+                name="last_name"
+                id="last_name"
+                onChange={this.handleChange}
+                placeholder="Last Name"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                className="form-control"
+                type="text"
+                name="email"
+                id="email"
+                onChange={this.handleChange}
+                placeholder="Email"
+              />
+            </div>
           </div>
         ) : (
           undefined
         )}
+
         <button>Submit</button>
       </form>
     );

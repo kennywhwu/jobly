@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 
+// Filters list based on entered search term
 class Search extends Component {
   constructor(props) {
     super(props);

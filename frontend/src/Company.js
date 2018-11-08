@@ -10,6 +10,7 @@ class Company extends Component {
     this.state = { company: { jobs: [] } };
   }
 
+  // Retrieve company information when component mounts
   async componentDidMount() {
     let result = await JoblyApi.getCompany(this.props.match.params.handle);
     this.setState({ company: result });
@@ -18,8 +19,8 @@ class Company extends Component {
   render() {
     return (
       <div className="Companies">
-        <div>{this.state.company.name}</div>
-        <div>{this.state.company.description}</div>
+        <h3>{this.state.company.name}</h3>
+        <p>{this.state.company.description}</p>
 
         {this.state.company.jobs.map(job => (
           <JobCard key={job.id} job={job} />

@@ -10,22 +10,36 @@ class Login extends Component {
     this.changeType = this.changeType.bind(this);
   }
 
+  // Login or sign up based on current state
   async login(user) {
     let token;
-    // console.log(this.state.type);
     if (this.state.type === 'login') {
-      token = await JoblyApi.login(user);
-      console.log(token);
-      this.props.triggerAlert('success', 'Successfully logged in!');
+      // Log in user based on credentials
+      try {
+        token = await JoblyApi.login(user);
+        this.props.triggerAlert('success', 'Successfully logged in!');
+      } catch (err) {
+        this.props.triggerAlert('danger', err[0]);
+      }
     } else {
-      token = await JoblyApi.register(user);
+      // Register new user based on entered information
+      try {
+        token = await JoblyApi.register(user);
+        this.props.triggerAlert('success', 'Successfully registered!');
+      } catch (err) {
+        this.props.triggerAlert('danger', err[0]);
+      }
     }
-    this.setState({ token });
-    localStorage.setItem('token', JSON.stringify(token));
-    this.props.fetchUser();
-    this.props.history.push('/companies');
+    // If login or registration successful, set token in state and local storage, and fetch user to store in App's state
+    if (token) {
+      localStorage.setItem('token', JSON.stringify(token));
+      this.props.fetchUser();
+      // Redirect to companies after successful login/registration
+      this.props.history.push('/companies');
+    }
   }
 
+  // Flip from login to registration
   changeType(evt) {
     this.setState({ type: evt.target.id });
   }

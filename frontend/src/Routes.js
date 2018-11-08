@@ -8,35 +8,40 @@ import Jobs from './Jobs';
 import Login from './Login';
 import Profile from './Profile';
 import Home from './Home';
-import PrivateRoute from './PrivateRoute';
-import LoggedInRoute from './LoggedInRoute';
+import ProtectedRoute from './ProtectedRoute';
 
+// PrivateRoute requires current user to be logged in, otherwise redirects to /login page
+// LoggedInRoute requires current user to not be logged in, otherwise redirects to /companies page
 class Routes extends Component {
   render() {
     return (
       <Switch>
-        <PrivateRoute
+        <ProtectedRoute
           exact
           path="/companies"
+          isProtected={true}
           currentUser={this.props.currentUser}
           render={props => <Companies {...props} />}
         />
-        <PrivateRoute
+        <ProtectedRoute
           exact
           path="/companies/:handle"
+          isProtected={true}
           currentUser={this.props.currentUser}
           render={props => <Company {...props} />}
         />
-        <PrivateRoute
+        <ProtectedRoute
           exact
           path="/jobs"
+          isProtected={true}
           currentUser={this.props.currentUser}
           fetchUser={this.props.fetchUser}
           render={() => <Jobs />}
         />
-        <LoggedInRoute
+        <ProtectedRoute
           exact
           path="/login"
+          isProtected={false}
           currentUser={this.props.currentUser}
           render={props => (
             <Login
@@ -46,16 +51,23 @@ class Routes extends Component {
             />
           )}
         />
-        <PrivateRoute
+        <ProtectedRoute
           exact
           path="/profile"
+          isProtected={true}
           currentUser={this.props.currentUser}
           render={props => <Profile {...props} />}
         />
         <Route
           exact
           path="/"
-          render={props => <Home {...props} clearUser={this.props.clearUser} />}
+          render={props => (
+            <Home
+              {...props}
+              clearUser={this.props.clearUser}
+              triggerAlert={this.props.triggerAlert}
+            />
+          )}
         />
         <Redirect to="/" />
       </Switch>

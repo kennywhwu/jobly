@@ -6,16 +6,38 @@ import { NavLink } from 'react-router-dom';
 class NavBar extends Component {
   render() {
     return (
-      <nav>
+      <nav className="navbar navbar-expand-sm navbar-light bg-light">
         {this.props.currentUser !== null ? (
-          <span>
-            <NavLink to="/companies">Companies</NavLink>
-            <NavLink to="/jobs">Jobs</NavLink>
-            <NavLink to="/profile">Profile</NavLink>
-            <NavLink to="/">Logout</NavLink>
-          </span>
+          // <div className="collapse navbar-collapse">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/companies">
+                Companies
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/jobs">
+                Jobs
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/profile">
+                Profile
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" exact to="/">
+                Logout
+              </NavLink>
+            </li>
+          </ul>
         ) : (
-          <NavLink to="/login">Login</NavLink>
+          // </div>
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink to="/login">Login</NavLink>
+            </li>
+          </ul>
         )}
       </nav>
     );

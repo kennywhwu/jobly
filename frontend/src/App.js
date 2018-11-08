@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import './App.css';
 import NavBar from './NavBar';
@@ -24,19 +23,28 @@ class App extends Component {
     this.fetchUser();
   }
 
+  // componentDidUpdate() {
+  //   if (this.state.alert.type !== null) {
+  //     this.setState({ alert: { type: null } });
+  //   }
+  // }
+
   async fetchUser() {
-    let token = JSON.parse(localStorage.getItem('token'));
-    if (token !== null) {
-      let payload = jwt.decode(token);
-      let currentUser = await JoblyApi.getUser(payload.username);
-      this.setState({ currentUser });
-    }
+    try {
+      let token = JSON.parse(localStorage.getItem('token'));
+      if (token !== null) {
+        let payload = jwt.decode(token);
+        let currentUser = await JoblyApi.getUser(payload.username);
+        this.setState({ currentUser });
+      }
+    } catch (err) {}
     this.setState({ isLoading: false });
   }
 
-  async clearUser() {
-    localStorage.removeItem('token');
-    this.setState({ currentUser: null });
+  clearUser() {
+    this.setState({ currentUser: null }, () =>
+      localStorage.removeItem('token')
+    );
   }
 
   triggerAlert(type, message) {
