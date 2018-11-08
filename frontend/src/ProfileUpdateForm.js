@@ -6,12 +6,11 @@ class ProfileUpdateForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.currentUser.username,
       password: '',
       first_name: this.props.currentUser.first_name,
       last_name: this.props.currentUser.last_name,
       email: this.props.currentUser.email,
-      photo_url: this.props.currentUser.photo_url
+      photo_url: this.props.currentUser.photo_url || undefined
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

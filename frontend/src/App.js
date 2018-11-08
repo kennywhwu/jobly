@@ -23,12 +23,6 @@ class App extends Component {
     this.fetchUser();
   }
 
-  // componentDidUpdate() {
-  //   if (this.state.alert.type !== null) {
-  //     this.setState({ alert: { type: null } });
-  //   }
-  // }
-
   async fetchUser() {
     try {
       let token = JSON.parse(localStorage.getItem('token'));
@@ -37,7 +31,9 @@ class App extends Component {
         let currentUser = await JoblyApi.getUser(payload.username);
         this.setState({ currentUser });
       }
-    } catch (err) {}
+    } catch (err) {
+      this.triggerAlert('danger', err);
+    }
     this.setState({ isLoading: false });
   }
 

@@ -57,7 +57,11 @@ class Routes extends Component {
           isProtected={true}
           currentUser={this.props.currentUser}
           render={props => (
-            <Profile {...props} currentUser={this.props.currentUser} />
+            <Profile
+              {...props}
+              fetchUser={this.props.fetchUser}
+              currentUser={this.props.currentUser}
+            />
           )}
         />
         <Route

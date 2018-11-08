@@ -3,9 +3,18 @@ import JoblyApi from './JoblyApi';
 import ProfileUpdateForm from './ProfileUpdateForm';
 
 class Profile extends Component {
-  async handleProfileUpdate(profile) {
-    let user = await JoblyApi.updateUser(profile);
-    if (user) {
+  constructor(props) {
+    super(props);
+    this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
+  }
+
+  async handleProfileUpdate(user) {
+    let updatedUser = await JoblyApi.updateUser(
+      user,
+      this.props.currentUser.username
+    );
+    if (updatedUser) {
+      this.props.fetchUser();
       this.props.history.push('/companies');
     }
   }

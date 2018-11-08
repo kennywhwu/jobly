@@ -75,9 +75,7 @@ router.post('/', async function(req, res, next) {
 
 router.patch('/:username', ensureCorrectUser, async function(req, res, next) {
   try {
-    console.log('req.body', req.body);
     if ('username' in req.body || 'is_admin' in req.body) {
-      console.log(req.body.username);
       return next({ status: 400, message: 'Not allowed' });
     }
 
