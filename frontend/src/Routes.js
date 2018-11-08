@@ -39,7 +39,11 @@ class Routes extends Component {
           path="/login"
           currentUser={this.props.currentUser}
           render={props => (
-            <Login {...props} fetchUser={this.props.fetchUser} />
+            <Login
+              {...props}
+              fetchUser={this.props.fetchUser}
+              triggerAlert={this.props.triggerAlert}
+            />
           )}
         />
         <PrivateRoute

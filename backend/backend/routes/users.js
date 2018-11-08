@@ -1,64 +1,61 @@
 /** Routes for users. */
 
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const { ensureCorrectUser, authRequired } = require("../middleware/auth");
+const { ensureCorrectUser, authRequired } = require('../middleware/auth');
 
-const User = require("../models/user");
-const { validate } = require("jsonschema");
+const User = require('../models/user');
+const { validate } = require('jsonschema');
 
-const { userNewSchema, userUpdateSchema } = require("../schemas");
+const { userNewSchema, userUpdateSchema } = require('../schemas');
 
-const createToken = require("../helpers/createToken");
-
+const createToken = require('../helpers/createToken');
 
 /** GET / => {users: [user, ...]} */
 
-router.get("/", authRequired, async function(req, res, next) {
+router.get('/', authRequired, async function(req, res, next) {
   try {
     const users = await User.findAll();
-    return res.json({users});
-  }
-
-  catch (err) {
+    return res.json({ users });
+  } catch (err) {
     return next(err);
   }
 });
 
 /** GET /jobs-applied-to  =>  {[job_id: 1, state:"applied"], ...}  */
 
-router.get("/:username/jobs-applied-to", ensureCorrectUser, async function (req, res, next) {
+router.get('/:username/jobs-applied-to', ensureCorrectUser, async function(
+  req,
+  res,
+  next
+) {
   try {
     const jobsAppliedTo = await User.getJobsAppliedTo(req.username);
     return res.json({ jobsAppliedTo });
-  }
-
-  catch (err) {
+  } catch (err) {
     return next(err);
   }
 });
 
 /** GET /[username] => {user: user} */
 
-router.get("/:username", authRequired, async function(req, res, next) {
+router.get('/:username', authRequired, async function(req, res, next) {
   try {
     const user = await User.findOne(req.params.username);
-    return res.json({user});
-  }
-
-  catch (err) {
+    return res.json({ user });
+  } catch (err) {
     return next(err);
   }
 });
 
 /** POST / {userdata}  => {token: token} */
 
-router.post("/", async function(req, res, next) {
+router.post('/', async function(req, res, next) {
   try {
     delete req.body._token;
     const validation = validate(req.body, userNewSchema);
-
+    console.log(req.body, validation);
     if (!validation.valid) {
       return next({
         status: 400,
@@ -69,46 +66,41 @@ router.post("/", async function(req, res, next) {
     const newUser = await User.register(req.body);
     const token = createToken(newUser);
     return res.status(201).json({ token });
-  }
-  catch (e) {
+  } catch (e) {
     return next(e);
   }
 });
 
 /** PATCH /[handle] {userData} => {user: updatedUser} */
 
-router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
+router.patch('/:username', ensureCorrectUser, async function(req, res, next) {
   try {
-    if ("username" in req.body || "is_admin" in req.body) {
-      return next({status: 400, message: "Not allowed" });
+    if ('username' in req.body || 'is_admin' in req.body) {
+      return next({ status: 400, message: 'Not allowed' });
     }
 
     const validation = validate(req.body, userUpdateSchema);
     if (!validation.valid) {
       return next({
-        status:400,
+        status: 400,
         message: validation.errors.map(e => e.stack)
       });
     }
 
     const user = await User.update(req.params.username, req.body);
-    return res.json({user});
-  }
-
-  catch (err) {
+    return res.json({ user });
+  } catch (err) {
     return next(err);
   }
 });
 
 /** DELETE /[handle]  =>  {message: "User deleted"}  */
 
-router.delete("/:username", ensureCorrectUser, async function(req, res, next) {
+router.delete('/:username', ensureCorrectUser, async function(req, res, next) {
   try {
     await User.remove(req.params.username);
-    return res.json({ message: "User deleted" });
-  }
-
-  catch (err) {
+    return res.json({ message: 'User deleted' });
+  } catch (err) {
     return next(err);
   }
 });
