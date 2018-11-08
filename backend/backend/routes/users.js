@@ -31,6 +31,7 @@ router.get('/:username/jobs-applied-to', ensureCorrectUser, async function(
   next
 ) {
   try {
+    console.log(req.username);
     const jobsAppliedTo = await User.getJobsAppliedTo(req.username);
     return res.json({ jobsAppliedTo });
   } catch (err) {

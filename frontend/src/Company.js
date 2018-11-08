@@ -23,7 +23,13 @@ class Company extends Component {
         <p>{this.state.company.description}</p>
 
         {this.state.company.jobs.map(job => (
-          <JobCard key={job.id} job={job} />
+          <JobCard
+            key={job.id}
+            job={job}
+            currentUser={this.props.currentUser}
+            triggerAlert={this.props.triggerAlert}
+            fetchUser={this.props.fetchUser}
+          />
         ))}
       </div>
     );

@@ -16,8 +16,12 @@ class Companies extends Component {
   // Get list of companies when component first mounts
   async componentDidMount() {
     // [{handle:, name:...},{},...]
-    let results = await JoblyApi.getCompanies();
-    this.setState({ companies: results });
+    // try {
+    let companyResults = await JoblyApi.getCompanies();
+    this.setState({ companies: companyResults });
+    // } catch (err) {
+    //   this.props.triggerAlert(''
+    // }
   }
 
   // Filter rendered companies list based on search term
@@ -32,7 +36,11 @@ class Companies extends Component {
         <h3>Companies</h3>
         <Search handleSearch={this.filterCompanies} />
         {this.state.companies.map(company => (
-          <CompanyCard key={company.handle} company={company} />
+          <CompanyCard
+            key={company.handle}
+            company={company}
+            triggerAlert={this.props.triggerAlert}
+          />
         ))}
       </div>
     );

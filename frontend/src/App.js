@@ -29,6 +29,12 @@ class App extends Component {
       if (token !== null) {
         let payload = jwt.decode(token);
         let currentUser = await JoblyApi.getUser(payload.username);
+        let appliedJobsResult = await JoblyApi.getJobsUserAppliedTo(
+          payload.username
+        );
+        let jobsAppliedTo = new Set();
+        appliedJobsResult.forEach(job => jobsAppliedTo.add(job.job_id));
+        currentUser.jobsAppliedTo = jobsAppliedTo;
         this.setState({ currentUser });
       }
     } catch (err) {
@@ -47,7 +53,7 @@ class App extends Component {
     this.setState({ alert: { type, message } });
     setTimeout(
       () => this.setState({ alert: { type: null, message: '' } }),
-      5000
+      3000
     );
   }
 

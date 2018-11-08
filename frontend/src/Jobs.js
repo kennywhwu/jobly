@@ -31,7 +31,13 @@ class Jobs extends Component {
         <h3>Jobs</h3>
         <Search handleSearch={this.filterJobs} />
         {this.state.jobs.map(job => (
-          <JobCard key={job.id} job={job} />
+          <JobCard
+            key={job.id}
+            job={job}
+            currentUser={this.props.currentUser}
+            triggerAlert={this.props.triggerAlert}
+            fetchUser={this.props.fetchUser}
+          />
         ))}
       </div>
     );

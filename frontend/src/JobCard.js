@@ -1,8 +1,32 @@
 // JobCard component for individual jobs
 
 import React, { Component } from 'react';
+import JoblyApi from './JoblyApi';
 
 class JobCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      applied: this.props.currentUser.jobsAppliedTo.has(this.props.job.id)
+        ? true
+        : false
+    };
+    this.apply = this.apply.bind(this);
+  }
+
+  async componentDidMount() {
+    // let appliedJob = await JoblyApi.getJob(this.props.job.id);
+  }
+
+  async apply() {
+    let message = await JoblyApi.apply(this.props.job.id, this.props.job.state);
+    if (message) {
+      this.setState({ applied: message, disabled: true });
+      this.props.triggerAlert('success', 'Applied to job!');
+      this.props.fetchUser();
+    }
+  }
+
   render() {
     return (
       <div
@@ -21,7 +45,13 @@ class JobCard extends Component {
           <p className="company-description card-text">
             Equity: {this.props.job.equity}
           </p>
-          <button>Apply</button>
+          <button
+            className="btn btn-primary"
+            onClick={this.apply}
+            disabled={this.state.applied ? true : false}
+          >
+            {this.state.applied ? 'Applied' : 'Apply'}
+          </button>
         </div>
       </div>
     );

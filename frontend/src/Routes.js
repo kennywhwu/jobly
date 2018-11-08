@@ -28,7 +28,14 @@ class Routes extends Component {
           path="/companies/:handle"
           isProtected={true}
           currentUser={this.props.currentUser}
-          render={props => <Company {...props} />}
+          render={props => (
+            <Company
+              {...props}
+              triggerAlert={this.props.triggerAlert}
+              fetchUser={this.props.fetchUser}
+              currentUser={this.props.currentUser}
+            />
+          )}
         />
         <ProtectedRoute
           exact
@@ -36,7 +43,13 @@ class Routes extends Component {
           isProtected={true}
           currentUser={this.props.currentUser}
           fetchUser={this.props.fetchUser}
-          render={() => <Jobs />}
+          render={() => (
+            <Jobs
+              triggerAlert={this.props.triggerAlert}
+              fetchUser={this.props.fetchUser}
+              currentUser={this.props.currentUser}
+            />
+          )}
         />
         <ProtectedRoute
           exact
