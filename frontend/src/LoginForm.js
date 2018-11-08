@@ -1,12 +1,13 @@
-// Search form component
+// LoginForm form component
 
 import React, { Component } from 'react';
 
-class Search extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      username: '',
+      password: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,17 +23,25 @@ class Search extends Component {
   // Handle submission of form
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.handleSearch(this.state.name);
-    this.props.history.push('/');
+    this.props.handleLogin(this.state);
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <label htmlFor="username">Username</label>
         <input
           type="text"
-          name="name"
-          id="name"
+          name="username"
+          id="username"
+          onChange={this.handleChange}
+          placeholder="Enter search term..."
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="text"
+          name="password"
+          id="password"
           onChange={this.handleChange}
           placeholder="Enter search term..."
         />
@@ -42,4 +51,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default LoginForm;

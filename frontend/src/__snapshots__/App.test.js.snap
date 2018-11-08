@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<MemoryRouter
+  initialEntries={
+    Array [
+      "/companies",
+    ]
+  }
+>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "6epzoq",
+            "pathname": "/companies",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "6epzoq",
+          "pathname": "/companies",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <App>
+      <div
+        className="App"
+      >
+        <NavBar>
+          <nav>
+            <NavLink
+              activeClassName="active"
+              aria-current="page"
+              to="/companies"
+            >
+              <Route
+                path="\\\\/companies"
+              >
+                <Link
+                  aria-current="page"
+                  className="active"
+                  replace={false}
+                  style={Object {}}
+                  to="/companies"
+                >
+                  <a
+                    aria-current="page"
+                    className="active"
+                    href="/companies"
+                    onClick={[Function]}
+                    style={Object {}}
+                  >
+                    Companies
+                  </a>
+                </Link>
+              </Route>
+            </NavLink>
+            <NavLink
+              activeClassName="active"
+              aria-current="page"
+              to="/jobs"
+            >
+              <Route
+                path="\\\\/jobs"
+              >
+                <Link
+                  aria-current={null}
+                  replace={false}
+                  to="/jobs"
+                >
+                  <a
+                    aria-current={null}
+                    href="/jobs"
+                    onClick={[Function]}
+                  >
+                    Jobs
+                  </a>
+                </Link>
+              </Route>
+            </NavLink>
+            <NavLink
+              activeClassName="active"
+              aria-current="page"
+              to="/profile"
+            >
+              <Route
+                path="\\\\/profile"
+              >
+                <Link
+                  aria-current={null}
+                  replace={false}
+                  to="/profile"
+                >
+                  <a
+                    aria-current={null}
+                    href="/profile"
+                    onClick={[Function]}
+                  >
+                    Profile
+                  </a>
+                </Link>
+              </Route>
+            </NavLink>
+            <NavLink
+              activeClassName="active"
+              aria-current="page"
+              to="/"
+            >
+              <Route
+                path="\\\\/"
+              >
+                <Link
+                  aria-current="page"
+                  className="active"
+                  replace={false}
+                  style={Object {}}
+                  to="/"
+                >
+                  <a
+                    aria-current="page"
+                    className="active"
+                    href="/"
+                    onClick={[Function]}
+                    style={Object {}}
+                  >
+                    Logout
+                  </a>
+                </Link>
+              </Route>
+            </NavLink>
+          </nav>
+        </NavBar>
+        <Routes>
+          <Switch>
+            <Route
+              computedMatch={
+                Object {
+                  "isExact": true,
+                  "params": Object {},
+                  "path": "/companies",
+                  "url": "/companies",
+                }
+              }
+              exact={true}
+              location={
+                Object {
+                  "hash": "",
+                  "key": "6epzoq",
+                  "pathname": "/companies",
+                  "search": "",
+                  "state": undefined,
+                }
+              }
+              path="/companies"
+              render={[Function]}
+            >
+              <Companies>
+                <div
+                  className="Companies"
+                >
+                  Companies
+                  <Search
+                    handleSearch={[Function]}
+                  >
+                    <form
+                      onSubmit={[Function]}
+                    >
+                      <input
+                        id="name"
+                        name="name"
+                        onChange={[Function]}
+                        placeholder="Enter search term..."
+                        type="text"
+                      />
+                      <button>
+                        Submit
+                      </button>
+                    </form>
+                  </Search>
+                </div>
+              </Companies>
+            </Route>
+          </Switch>
+        </Routes>
+      </div>
+    </App>
+  </Router>
+</MemoryRouter>
+`;
