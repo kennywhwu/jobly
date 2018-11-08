@@ -49,6 +49,10 @@ class App extends Component {
 
   triggerAlert(type, message) {
     this.setState({ alert: { type, message } });
+    setTimeout(
+      () => this.setState({ alert: { type: null, message: '' } }),
+      5000
+    );
   }
 
   render() {

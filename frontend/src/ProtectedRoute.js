@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 class ProtectedRoute extends Component {
-  // Protected Route for routes that require user to be logged in; otherwise redirects to login page
+  // For routes that require user to be logged in, redirect to /login route if not
+  // For routes that require user to not be logged in, redirect to /companies route if logged in
   render() {
     if (this.props.isProtected) {
       if (this.props.currentUser === null) {
