@@ -48,7 +48,7 @@ class App extends Component {
       let token = localStorage.getItem('token');
       localStorage.removeItem('token');
       if (token) {
-        this.props.triggerAlert('success', 'Logged out!');
+        this.triggerAlert('success', 'Logged out!');
       }
     });
   }
