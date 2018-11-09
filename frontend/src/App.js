@@ -44,9 +44,13 @@ class App extends Component {
   }
 
   clearUser() {
-    this.setState({ currentUser: null }, () =>
-      localStorage.removeItem('token')
-    );
+    this.setState({ currentUser: null }, () => {
+      let token = localStorage.getItem('token');
+      localStorage.removeItem('token');
+      if (token) {
+        this.props.triggerAlert('success', 'Logged out!');
+      }
+    });
   }
 
   triggerAlert(type, message) {
