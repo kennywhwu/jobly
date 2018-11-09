@@ -57,7 +57,7 @@ class Companies extends Component {
         <Search handleSearch={this.filterCompanies} />
 
         {pages.map(page => (
-          <button onClick={this.changePage} id={page}>
+          <button onClick={this.changePage} id={page} key={page}>
             {page + 1}
           </button>
         ))}
@@ -71,7 +71,7 @@ class Companies extends Component {
         ))}
 
         {pages.map(page => (
-          <button onClick={this.changePage} id={page}>
+          <button onClick={this.changePage} id={page} key={page}>
             {page + 1}
           </button>
         ))}
