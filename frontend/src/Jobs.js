@@ -8,9 +8,14 @@ import Search from './Search';
 class Jobs extends Component {
   constructor(props) {
     super(props);
-    this.state = { jobs: [] };
+    this.state = { jobs: [], page: 0 };
     this.filterJobs = this.filterJobs.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
+
+  static defaultProps = {
+    itemsPerPage: 20
+  };
 
   // Retrieve all jobs when component mounts
   async componentDidMount() {
@@ -25,12 +30,34 @@ class Jobs extends Component {
     this.setState({ jobs: results });
   }
 
+  changePage(evt) {
+    this.setState({ page: +evt.target.id });
+  }
+
   render() {
+    let jobs = this.state.jobs.slice(
+      this.state.page * this.props.itemsPerPage,
+      (1 + this.state.page) * this.props.itemsPerPage
+    );
+    let pages = [
+      ...Array(
+        Math.ceil(this.state.jobs.length / this.props.itemsPerPage)
+      ).keys()
+    ];
+
     return (
       <div className="Jobs">
         <h3>Jobs</h3>
+
         <Search handleSearch={this.filterJobs} />
-        {this.state.jobs.map(job => (
+
+        {pages.map(page => (
+          <button onClick={this.changePage} id={page} key={page}>
+            {page + 1}
+          </button>
+        ))}
+
+        {jobs.map(job => (
           <JobCard
             key={job.id}
             job={job}
@@ -38,6 +65,12 @@ class Jobs extends Component {
             triggerAlert={this.props.triggerAlert}
             fetchUser={this.props.fetchUser}
           />
+        ))}
+
+        {pages.map(page => (
+          <button onClick={this.changePage} id={page} key={page}>
+            {page + 1}
+          </button>
         ))}
       </div>
     );
