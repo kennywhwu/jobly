@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 import LoginForm from './LoginForm';
 import JoblyApi from './JoblyApi';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { type: 'login' };
+    this.state = { type: props.type };
     this.login = this.login.bind(this);
     this.changeType = this.changeType.bind(this);
   }
@@ -47,12 +48,12 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <button onClick={this.changeType} id="login">
+        <Button color="primary" outline onClick={this.changeType} id="login">
           Login
-        </button>
-        <button onClick={this.changeType} id="signup">
+        </Button>
+        <Button color="primary" onClick={this.changeType} id="signup">
           Signup
-        </button>
+        </Button>
         <LoginForm handleLogin={this.login} type={this.state.type} />
       </div>
     );

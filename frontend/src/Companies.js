@@ -1,7 +1,7 @@
 // Companies component for list of companies
 
 import React, { Component } from 'react';
-import './Companies.css';
+import { Button } from 'reactstrap';
 import JoblyApi from './JoblyApi';
 import CompanyCard from './CompanyCard';
 import Search from './Search';
@@ -15,7 +15,7 @@ class Companies extends Component {
   }
 
   static defaultProps = {
-    itemsPerPage: 20
+    itemsPerPage: 20,
   };
 
   // Get list of companies when component first mounts
@@ -47,21 +47,27 @@ class Companies extends Component {
     let pages = [
       ...Array(
         Math.ceil(this.state.companies.length / this.props.itemsPerPage)
-      ).keys()
+      ).keys(),
     ];
 
     return (
       <div className="Companies">
-        <h3>Companies</h3>
-
-        <Search handleSearch={this.filterCompanies} />
-
-        {pages.map(page => (
-          <button onClick={this.changePage} id={page} key={page}>
-            {page + 1}
-          </button>
-        ))}
-
+        <div className="header">
+          <h3>Companies</h3>
+          <Search handleSearch={this.filterCompanies} />
+          {pages.map(page => (
+            <Button
+              onClick={this.changePage}
+              id={page}
+              className="button-page"
+              key={page}
+              disabled={this.state.page === page && true}
+              color="info"
+            >
+              {page + 1}
+            </Button>
+          ))}
+        </div>
         {companies.map(company => (
           <CompanyCard
             key={company.handle}
@@ -69,11 +75,16 @@ class Companies extends Component {
             triggerAlert={this.props.triggerAlert}
           />
         ))}
-
         {pages.map(page => (
-          <button onClick={this.changePage} id={page} key={page}>
+          <Button
+            onClick={this.changePage}
+            id={page}
+            className="button-page"
+            key={page}
+            color="info"
+          >
             {page + 1}
-          </button>
+          </Button>
         ))}
       </div>
     );

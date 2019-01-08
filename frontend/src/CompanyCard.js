@@ -1,41 +1,34 @@
 // CompanyCard for specific company information
 
 import React, { Component } from 'react';
-import './CompanyCard.css';
+import { Card, CardBody, CardTitle, CardText, CardImg } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class CompanyCard extends Component {
   render() {
     return (
-      <div
-        className="CompanyCard card"
-        style={{
-          width: '50%',
-          margin: '10px auto 10px auto',
-          padding: '10px'
-        }}
-      >
+      <Card className="CompanyCard">
         <Link
           key={this.props.company.handle}
           to={`/companies/${this.props.company.handle}`}
         >
-          <div className="card-body">
-            <h5 className="company-name card-title">
+          <CardBody className="CardBody">
+            <CardTitle className="company-name CardTitle">
               {this.props.company.name}
-            </h5>
-            <p className="company-description card-text">
+            </CardTitle>
+            <CardText className="company-description card-text">
               {this.props.company.description}
-            </p>
-          </div>
-          <img
+            </CardText>
+          </CardBody>
+          <CardImg
             // className="card-img-top"
-            src="https://loremflickr.com/75/75/cat"
+            src={`/SVG/${this.props.company.logo_url}`}
             alt={this.props.company.handle}
             style={{ width: '100px', margin: 'auto' }}
             // width="100px"
           />
         </Link>
-      </div>
+      </Card>
     );
   }
 }

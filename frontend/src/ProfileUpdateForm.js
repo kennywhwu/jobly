@@ -1,6 +1,7 @@
 // ProfileUpdateForm form component for login and signup
 
 import React, { Component } from 'react';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class ProfileUpdateForm extends Component {
   constructor(props) {
@@ -10,16 +11,16 @@ class ProfileUpdateForm extends Component {
       first_name: this.props.currentUser.first_name,
       last_name: this.props.currentUser.last_name,
       email: this.props.currentUser.email,
-      photo_url: this.props.currentUser.photo_url || undefined
+      photo_url: this.props.currentUser.photo_url || undefined,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // Handle change to user input boxes
+  // Handle change to user Input boxes
   handleChange(evt) {
     this.setState({
-      [evt.target.name]: evt.target.value
+      [evt.target.name]: evt.target.value,
     });
   }
 
@@ -32,18 +33,21 @@ class ProfileUpdateForm extends Component {
   render() {
     const user = this.props.currentUser;
     return (
-      <form
-        onSubmit={this.handleSubmit}
-        style={{ margin: '10px auto 10px auto', width: '40%' }}
-      >
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <p>{user.username}</p>
-        </div>
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup row>
+          <Label htmlFor="username">Username</Label>
+          <Input
+            className="form-control"
+            plaintext
+            name="user_name"
+            id="user_name"
+            value={user.username}
+          />
+        </FormGroup>
 
-        <div className="form-group">
-          <label htmlFor="first_name">First Name</label>
-          <input
+        <FormGroup row>
+          <Label htmlFor="first_name">First Name</Label>
+          <Input
             className="form-control"
             type="text"
             name="first_name"
@@ -51,10 +55,10 @@ class ProfileUpdateForm extends Component {
             onChange={this.handleChange}
             value={this.state.first_name}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="last_name">Last Name</label>
-          <input
+        </FormGroup>
+        <FormGroup row>
+          <Label htmlFor="last_name">Last Name</Label>
+          <Input
             className="form-control"
             type="text"
             name="last_name"
@@ -62,10 +66,10 @@ class ProfileUpdateForm extends Component {
             onChange={this.handleChange}
             value={this.state.last_name}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
+        </FormGroup>
+        <FormGroup row>
+          <Label htmlFor="email">Email</Label>
+          <Input
             className="form-control"
             type="text"
             name="email"
@@ -73,11 +77,11 @@ class ProfileUpdateForm extends Component {
             onChange={this.handleChange}
             value={this.state.email}
           />
-        </div>
+        </FormGroup>
 
-        <div className="form-group">
-          <label htmlFor="photo_url">Photo URL</label>
-          <input
+        <FormGroup row>
+          <Label htmlFor="photo_url">Photo URL</Label>
+          <Input
             className="form-control"
             type="photo_url"
             name="photo_url"
@@ -85,20 +89,20 @@ class ProfileUpdateForm extends Component {
             onChange={this.handleChange}
             value={this.state.photo_url || ''}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
+        </FormGroup>
+        <FormGroup row>
+          <Label htmlFor="password">Password</Label>
+          <Input
             className="form-control"
             type="password"
             name="password"
             id="password"
             onChange={this.handleChange}
           />
-        </div>
+        </FormGroup>
 
-        <button>Submit</button>
-      </form>
+        <Button color="info">Submit</Button>
+      </Form>
     );
   }
 }

@@ -9,13 +9,18 @@ class Profile extends Component {
   }
 
   async handleProfileUpdate(user) {
-    let updatedUser = await JoblyApi.updateUser(
-      user,
-      this.props.currentUser.username
-    );
-    if (updatedUser) {
-      this.props.fetchUser();
-      this.props.history.push('/companies');
+    try {
+      let updatedUser = await JoblyApi.updateUser(
+        user,
+        this.props.currentUser.username
+      );
+      if (updatedUser) {
+        this.props.fetchUser();
+        this.props.triggerAlert('success', 'Updated profile!');
+        this.props.history.push('/companies');
+      }
+    } catch (err) {
+      this.props.triggerAlert('danger', err[0]);
     }
   }
 

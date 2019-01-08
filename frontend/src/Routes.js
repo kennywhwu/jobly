@@ -61,6 +61,21 @@ class Routes extends Component {
               {...props}
               fetchUser={this.props.fetchUser}
               triggerAlert={this.props.triggerAlert}
+              type="login"
+            />
+          )}
+        />
+        <ProtectedRoute
+          exact
+          path="/signup"
+          isProtected={false}
+          currentUser={this.props.currentUser}
+          render={props => (
+            <Login
+              {...props}
+              fetchUser={this.props.fetchUser}
+              triggerAlert={this.props.triggerAlert}
+              type="signup"
             />
           )}
         />
@@ -74,6 +89,21 @@ class Routes extends Component {
               {...props}
               fetchUser={this.props.fetchUser}
               currentUser={this.props.currentUser}
+              triggerAlert={this.props.triggerAlert}
+            />
+          )}
+        />
+        <ProtectedRoute
+          exact
+          path="/logout"
+          isProtected={true}
+          currentUser={this.props.currentUser}
+          render={props => (
+            <Home
+              {...props}
+              logout={true}
+              clearUser={this.props.clearUser}
+              triggerAlert={this.props.triggerAlert}
             />
           )}
         />
@@ -83,6 +113,7 @@ class Routes extends Component {
           render={props => (
             <Home
               {...props}
+              logout={false}
               clearUser={this.props.clearUser}
               triggerAlert={this.props.triggerAlert}
             />

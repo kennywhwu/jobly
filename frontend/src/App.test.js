@@ -28,8 +28,9 @@ it('renders Companies and Search components when going to /companies', function(
     </MemoryRouter>
   );
 
-  let elem = wrapper.find('div').first();
-  expect(elem.matchesElement(<Companies />));
+  let elem = wrapper.children();
+  console.log('elem', elem.debug());
+  expect(elem.matchesElement(<Companies />)).toBe(true);
   expect(elem.matchesElement(<Search />));
 });
 it('renders JobCard component when going to /companies/:handle', function() {

@@ -1,6 +1,7 @@
 // LoginForm form component for login and signup
 
 import React, { Component } from 'react';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -10,16 +11,16 @@ class LoginForm extends Component {
       password: '',
       first_name: '',
       last_name: '',
-      email: ''
+      email: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // Handle change to user input boxes
+  // Handle change to user Input boxes
   handleChange(evt) {
     this.setState({
-      [evt.target.name]: evt.target.value
+      [evt.target.name]: evt.target.value,
     });
   }
 
@@ -31,13 +32,10 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form
-        onSubmit={this.handleSubmit}
-        style={{ margin: '10px auto 10px auto', width: '40%' }}
-      >
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup row className="form-group">
+          <Label htmlFor="username">Username</Label>
+          <Input
             className="form-control"
             type="text"
             name="username"
@@ -45,10 +43,10 @@ class LoginForm extends Component {
             onChange={this.handleChange}
             placeholder="Username"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
+        </FormGroup>
+        <FormGroup row className="form-group">
+          <Label htmlFor="password">Password</Label>
+          <Input
             className="form-control"
             type="password"
             name="password"
@@ -56,12 +54,12 @@ class LoginForm extends Component {
             onChange={this.handleChange}
             placeholder="Password"
           />
-        </div>
+        </FormGroup>
         {this.props.type === 'signup' ? (
           <div>
-            <div className="form-group">
-              <label htmlFor="first_name">First Name</label>
-              <input
+            <FormGroup row className="form-group">
+              <Label htmlFor="first_name">First Name</Label>
+              <Input
                 className="form-control"
                 type="text"
                 name="first_name"
@@ -69,10 +67,10 @@ class LoginForm extends Component {
                 onChange={this.handleChange}
                 placeholder="First Name"
               />
-            </div>
-            <div className="form-group">
-              <label htmlFor="last_name">Last Name</label>
-              <input
+            </FormGroup>
+            <FormGroup row className="form-group">
+              <Label htmlFor="last_name">Last Name</Label>
+              <Input
                 className="form-control"
                 type="text"
                 name="last_name"
@@ -80,10 +78,10 @@ class LoginForm extends Component {
                 onChange={this.handleChange}
                 placeholder="Last Name"
               />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
+            </FormGroup>
+            <FormGroup row className="form-group">
+              <Label htmlFor="email">Email</Label>
+              <Input
                 className="form-control"
                 type="text"
                 name="email"
@@ -91,14 +89,14 @@ class LoginForm extends Component {
                 onChange={this.handleChange}
                 placeholder="Email"
               />
-            </div>
+            </FormGroup>
           </div>
         ) : (
           undefined
         )}
 
-        <button>Submit</button>
-      </form>
+        <Button color="info">Submit</Button>
+      </Form>
     );
   }
 }

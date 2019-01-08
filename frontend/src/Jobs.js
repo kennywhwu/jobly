@@ -1,6 +1,7 @@
 // Jobs component for list of jobs
 
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 import JoblyApi from './JoblyApi';
 import JobCard from './JobCard';
 import Search from './Search';
@@ -14,7 +15,7 @@ class Jobs extends Component {
   }
 
   static defaultProps = {
-    itemsPerPage: 20
+    itemsPerPage: 20,
   };
 
   // Retrieve all jobs when component mounts
@@ -42,21 +43,29 @@ class Jobs extends Component {
     let pages = [
       ...Array(
         Math.ceil(this.state.jobs.length / this.props.itemsPerPage)
-      ).keys()
+      ).keys(),
     ];
 
     return (
       <div className="Jobs">
-        <h3>Jobs</h3>
+        <div className="header">
+          <h3>Jobs</h3>
 
-        <Search handleSearch={this.filterJobs} />
+          <Search handleSearch={this.filterJobs} />
 
-        {pages.map(page => (
-          <button onClick={this.changePage} id={page} key={page}>
-            {page + 1}
-          </button>
-        ))}
-
+          {pages.map(page => (
+            <Button
+              onClick={this.changePage}
+              id={page}
+              className="button-page"
+              key={page}
+              disabled={this.state.page === page && true}
+              color="info"
+            >
+              {page + 1}
+            </Button>
+          ))}
+        </div>
         {jobs.map(job => (
           <JobCard
             key={job.id}
@@ -68,9 +77,15 @@ class Jobs extends Component {
         ))}
 
         {pages.map(page => (
-          <button onClick={this.changePage} id={page} key={page}>
+          <Button
+            onClick={this.changePage}
+            id={page}
+            className="button-page"
+            key={page}
+            color="info"
+          >
             {page + 1}
-          </button>
+          </Button>
         ))}
       </div>
     );

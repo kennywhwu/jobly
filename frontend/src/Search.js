@@ -1,13 +1,14 @@
 // Search form component
 
 import React, { Component } from 'react';
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 
 // Filters list based on entered search term
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,7 +17,7 @@ class Search extends Component {
   // Handle change to user input boxes
   handleChange(evt) {
     this.setState({
-      [evt.target.name]: evt.target.value
+      [evt.target.name]: evt.target.value,
     });
   }
 
@@ -28,16 +29,18 @@ class Search extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          onChange={this.handleChange}
-          placeholder="Enter search term..."
-        />
-        <button>Submit</button>
-      </form>
+      <Form inline onSubmit={this.handleSubmit}>
+        <FormGroup>
+          <Input
+            type="text"
+            name="name"
+            id="name"
+            onChange={this.handleChange}
+            placeholder="Enter search term..."
+          />
+          <Button color="info">Submit</Button>
+        </FormGroup>
+      </Form>
     );
   }
 }

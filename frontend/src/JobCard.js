@@ -1,6 +1,7 @@
 // JobCard component for individual jobs
 
 import React, { Component } from 'react';
+import { Button, Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import JoblyApi from './JoblyApi';
 
 class JobCard extends Component {
@@ -9,7 +10,7 @@ class JobCard extends Component {
     this.state = {
       applied: this.props.currentUser.jobsAppliedTo.has(this.props.job.id)
         ? true
-        : false
+        : false,
     };
     this.apply = this.apply.bind(this);
   }
@@ -29,31 +30,26 @@ class JobCard extends Component {
 
   render() {
     return (
-      <div
-        className="JobCard card"
-        style={{
-          width: '50%',
-          margin: '10px auto 10px auto',
-          padding: '5px'
-        }}
-      >
-        <div className="card-body">
-          <h5 className="company-name card-title">{this.props.job.title}</h5>
-          <p className="company-description card-text">
+      <Card className="JobCard">
+        <CardBody className="CardBody">
+          <CardTitle className="company-name CardTitle">
+            {this.props.job.title}
+          </CardTitle>
+          <CardText className="company-description CardText">
             Salary: {this.props.job.salary}
-          </p>
-          <p className="company-description card-text">
+          </CardText>
+          <CardText className="company-description CardText">
             Equity: {this.props.job.equity}
-          </p>
-          <button
-            className="btn btn-primary"
+          </CardText>
+          <Button
+            color="primary"
             onClick={this.apply}
             disabled={this.state.applied ? true : false}
           >
             {this.state.applied ? 'Applied' : 'Apply'}
-          </button>
-        </div>
-      </div>
+          </Button>
+        </CardBody>
+      </Card>
     );
   }
 }

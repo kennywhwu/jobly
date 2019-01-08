@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import './App.css';
 import NavBar from './NavBar';
 import Routes from './Routes';
+import Footer from './Footer';
 import Alert from './Alert';
 import JoblyApi from './JoblyApi';
 
@@ -12,7 +13,7 @@ class App extends Component {
     this.state = {
       currentUser: null,
       isLoading: true,
-      alert: { type: null, message: '' }
+      alert: { type: null, message: '' },
     };
     this.fetchUser = this.fetchUser.bind(this);
     this.clearUser = this.clearUser.bind(this);
@@ -79,6 +80,7 @@ class App extends Component {
               clearUser={this.clearUser}
               triggerAlert={this.triggerAlert}
             />
+            <Footer />
           </div>
         ) : (
           <h1>Loading...</h1>
