@@ -5,21 +5,31 @@
 -- Dumped from database version 10.5
 -- Dumped by pg_dump version 10.5
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
+SET statement_timeout
+= 0;
+SET lock_timeout
+= 0;
+SET idle_in_transaction_session_timeout
+= 0;
+SET client_encoding
+= 'UTF8';
+SET standard_conforming_strings
+= on;
 SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
+SET check_function_bodies
+= false;
+SET client_min_messages
+= warning;
+SET row_security
+= off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+CREATE EXTENSION
+IF NOT EXISTS plpgsql
+WITH SCHEMA pg_catalog;
 
 
 --
@@ -29,60 +39,67 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
-SET default_tablespace = '';
+SET default_tablespace
+= '';
 
-SET default_with_oids = false;
+SET default_with_oids
+= false;
 
 --
 -- Name: applications; Type: TABLE; Schema: public; Owner: joel
 --
 
-CREATE TABLE public.applications (
+CREATE TABLE public.applications
+(
     username text NOT NULL,
     job_id integer NOT NULL,
     state text NOT NULL,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp
+    without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
 
-ALTER TABLE public.applications OWNER TO joel;
+    ALTER TABLE public.applications OWNER TO joel;
 
---
--- Name: companies; Type: TABLE; Schema: public; Owner: joel
---
+    --
+    -- Name: companies; Type: TABLE; Schema: public; Owner: joel
+    --
 
-CREATE TABLE public.companies (
-    handle text NOT NULL,
-    name text NOT NULL,
-    num_employees integer,
-    description text,
-    logo_url text
+    CREATE TABLE public.companies
+    (
+        handle text NOT NULL,
+        name text NOT NULL,
+        num_employees integer,
+        description text,
+        logo_url text
+    );
+
+
+    ALTER TABLE public.companies OWNER TO joel;
+
+    --
+    -- Name: jobs; Type: TABLE; Schema: public; Owner: joel
+    --
+
+    CREATE TABLE public.jobs
+    (
+        id integer NOT NULL,
+        title text NOT NULL,
+        salary double precision,
+        equity double precision,
+        company_handle text NOT NULL,
+        CONSTRAINT jobs_equity_check CHECK ((equity <= (1.0)
+        ::double precision))
 );
 
 
-ALTER TABLE public.companies OWNER TO joel;
+        ALTER TABLE public.jobs OWNER TO joel;
 
---
--- Name: jobs; Type: TABLE; Schema: public; Owner: joel
---
+        --
+        -- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: joel
+        --
 
-CREATE TABLE public.jobs (
-    id integer NOT NULL,
-    title text NOT NULL,
-    salary double precision,
-    equity double precision,
-    company_handle text NOT NULL,
-    CONSTRAINT jobs_equity_check CHECK ((equity <= (1.0)::double precision))
-);
-
-
-ALTER TABLE public.jobs OWNER TO joel;
-
---
--- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: joel
---
-
-CREATE SEQUENCE public.jobs_id_seq
+        CREATE SEQUENCE public.jobs_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -91,44 +108,51 @@ CREATE SEQUENCE public.jobs_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.jobs_id_seq OWNER TO joel;
+        ALTER TABLE public.jobs_id_seq OWNER TO joel;
 
---
--- Name: jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: joel
---
+        --
+        -- Name: jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: joel
+        --
 
-ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
-
-
---
--- Name: users; Type: TABLE; Schema: public; Owner: joel
---
-
-CREATE TABLE public.users (
-    username text NOT NULL,
-    password text NOT NULL,
-    first_name text,
-    last_name text,
-    email text,
-    photo_url text,
-    is_admin boolean DEFAULT false NOT NULL
-);
+        ALTER SEQUENCE public.jobs_id_seq
+        OWNED BY public.jobs.id;
 
 
-ALTER TABLE public.users OWNER TO joel;
+        --
+        -- Name: users; Type: TABLE; Schema: public; Owner: joel
+        --
 
---
--- Name: jobs id; Type: DEFAULT; Schema: public; Owner: joel
---
+        CREATE TABLE public.users
+        (
+            username text NOT NULL,
+            password text NOT NULL,
+            first_name text,
+            last_name text,
+            email text,
+            photo_url text,
+            is_admin boolean DEFAULT false NOT NULL
+        );
 
-ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id_seq'::regclass);
+
+        ALTER TABLE public.users OWNER TO joel;
+
+        --
+        -- Name: jobs id; Type: DEFAULT; Schema: public; Owner: joel
+        --
+
+        ALTER TABLE ONLY public.jobs
+        ALTER COLUMN id
+        SET
+        DEFAULT nextval
+        ('public.jobs_id_seq'::regclass);
 
 
 --
 -- Data for Name: applications; Type: TABLE DATA; Schema: public; Owner: joel
 --
 
-COPY public.applications (username, job_id, state, created_at) FROM stdin;
+COPY public.applications
+        (username, job_id, state, created_at) FROM stdin;
 \.
 
 
@@ -136,56 +160,129 @@ COPY public.applications (username, job_id, state, created_at) FROM stdin;
 -- Data for Name: companies; Type: TABLE DATA; Schema: public; Owner: joel
 --
 
-COPY public.companies (handle, name, num_employees, description, logo_url) FROM stdin;
-edwards-lee-and-reese	Edwards, Lee and Reese	744	To much recent it reality coach decision Mr. Dog language evidence minute either deep situation pattern. Other cold bad loss surface real show.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-sellers-bryant	Sellers-Bryant	369	Language discussion mission soon wait according executive. Financial say husband anyone money politics. Dinner action purpose mouth environment I white.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+COPY public.companies
+        (handle, name, num_employees, description, logo_url) FROM stdin;
+edwards-lee-and-reese	Edwards, Lee and Reese	744	To much recent it reality coach decision Mr. Dog language evidence minute either deep situation pattern. Other cold bad loss surface real show.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+sellers-bryant	Sellers-Bryant	369	Language discussion mission soon wait according executive. Financial say husband anyone money politics. Dinner action purpose mouth environment I white.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
 bauer-gallagher	Bauer-Gallagher	862	Difficult ready trip question produce produce someone.	
-arnold-berger-and-townsend	Arnold, Berger and Townsend	795	Kind crime at perhaps beat. Enjoy deal purpose serve begin or thought. Congress everything miss tend.	
-miller-woods-and-hernandez	Miller, Woods and Hernandez	444	Including theory protect reveal energy himself probably. Test leave mother area however.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-davis-davis	Davis-Davis	23	Career participant difficult. Decide claim particular century society. Question growth two staff.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-jackson-and-sons	Jackson and Sons	649	President couple political sit create.	
-smith-llc	Smith LLC	908	Statement use per mission method. Order truth method.	
+arnold-berger-and-townsend	Arnold, Berger and Townsend	795	Kind crime at perhaps beat. Enjoy deal purpose serve
+        begin
+            or thought. Congress everything miss tend.	
+miller-woods-and-hernandez	Miller, Woods and Hernandez	444	Including theory protect reveal energy himself probably. Test leave mother area however.
+            http:
+            //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+davis-davis	Davis-Davis	23	Career participant difficult. Decide claim particular century society. Question growth two staff.
+            http:
+            //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+jackson-and-sons	Jackson and Sons	649	President couple political sit
+            create.	
+smith-llc	Smith LLC	908	Statement
+            use per
+            mission method. Order truth method.	
 humphrey-llc	Humphrey LLC	678	Agent actually able paper nor. Tell then court full agree without assume.	
 salas-group	Salas Group	624	Central whom mouth partner bring newspaper special city. Show second cost newspaper can early play.	
-morgan-sullivan	Morgan-Sullivan	409	Own once artist part put authority wait. Focus free even. Why friend civil visit.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-perez-miller	Perez-Miller	298	Space one approach wife son. Themselves give necessary follow employee return feel. Step animal doctor sign water early.	
-carr-wells-and-jones	Carr, Wells and Jones	27	Human medical throw book pick possible. Maybe yeah word beat treatment impact campaign.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-thomas-and-sons	Thomas and Sons	51	Book detail scene continue. Art strategy because list two.	
+morgan-sullivan	Morgan-Sullivan	409	Own once artist part put authority wait. Focus free even. Why friend civil visit.
+            http:
+            //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+perez-miller	Perez-Miller	298	Space one approach wife son. Themselves give necessary follow employee
+            return feel. Step
+            animal doctor sign water early.	
+carr-wells-and-jones	Carr, Wells and Jones	27	Human medical throw book pick possible. Maybe yeah word beat treatment impact campaign.
+            http:
+            //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+thomas-and-sons	Thomas and Sons	51	Book detail scene
+            continue
+            . Art strategy because list two.	
 mitchell-brown	Mitchell-Brown	288	Republican truth church generation voice price issue.	
 watson-davis	Watson-Davis	819	Year join loss.	
-logan-miller	Logan-Miller	429	Pattern hand where never. Social across ability which structure.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-taylor-yu-and-lee	Taylor, Yu and Lee	226	Down bag serve. Officer season company.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-hudson-inc	Hudson Inc	627	End now meet staff. Long government force why bar. Provide bring hope staff almost many be a.	
+logan-miller	Logan-Miller	429	Pattern hand where never. Social across ability which structure.
+            http:
+            //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+taylor-yu-and-lee	Taylor, Yu and Lee	226	Down bag serve. Officer season company.
+            http:
+            //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+hudson-inc	Hudson Inc	627
+        End
+        now meet staff. Long government force why bar. Provide bring hope staff almost many be a.	
 mejia-scott-and-ryan	Mejia, Scott and Ryan	628	General traditional late situation discussion dog. Before best up strategy about direction.	
-scott-smith	Scott-Smith	993	Room newspaper foot. Student daughter their themselves top almost near. Wait time recently it street follow medical nothing.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-norman-harvey	Norman-Harvey	837	Drop along test material education. Opportunity forget campaign federal certainly total hair.	
-hall-mills	Hall-Mills	266	Change stage tell note hundred. Worry where program wait.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-gillespie-smith	Gillespie-Smith	302	Candidate ability democratic make drug. Player themselves like front. Over through style loss win very when.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-boyd-evans	Boyd-Evans	698	Build respond generation tree. No five keep. Happy medical back fine focus suffer modern.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-martinez-daniels	Martinez-Daniels	12	Five source market nation. Drop foreign raise pass.	
-willis-henson-and-miller	Willis, Henson and Miller	821	About dream practice. Father significant senior health within four.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-wiggins-frederick-and-boyer	Wiggins, Frederick and Boyer	298	Institution structure say argue bit. Each option high executive easy pattern. Majority white hour there reach drive produce.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-stone-stewart	Stone-Stewart	459	Require successful family but. Traditional article late eight lose common send budget. Better opportunity law country various represent strong probably.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-mueller-moore	Mueller-Moore	932	Edge may report though least pressure likely. Cost short appear program hair seven.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-rivas-llc	Rivas LLC	552	Would road lot research wide mouth. Resource along office drug.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+scott-smith	Scott-Smith	993	Room newspaper foot. Student daughter their themselves top almost near. Wait time recently it street follow medical nothing.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+norman-harvey	Norman-Harvey	837
+        Drop along test material education. Opportunity forget campaign federal certainly total hair.	
+hall-mills	Hall-Mills	266	Change stage tell note hundred. Worry where program wait.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+gillespie-smith	Gillespie-Smith	302	Candidate ability democratic make drug. Player themselves like front. Over through style loss win very when.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+boyd-evans	Boyd-Evans	698	Build respond generation tree. No five keep. Happy medical back fine focus suffer modern.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+martinez-daniels	Martinez-Daniels	12	Five source market nation.
+        Drop foreign raise pass.	
+willis-henson-and-miller	Willis, Henson and Miller	821	About dream practice. Father significant senior health within four.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+wiggins-frederick-and-boyer	Wiggins, Frederick and Boyer	298	Institution structure say argue bit. Each option high executive easy pattern. Majority white hour there reach drive produce.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+stone-stewart	Stone-Stewart	459	Require successful family but. Traditional article late eight lose common send budget. Better opportunity law country various represent strong probably.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+mueller-moore	Mueller-Moore	932	Edge may report though least pressure likely. Cost short appear program hair seven.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+rivas-llc	Rivas LLC	552	Would road lot research wide mouth. Resource along office drug.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
 garner-michael	Garner-Michael	940	Necessary thousand parent since discuss director. Visit machine skill five the.	
-owen-newton	Owen-Newton	953	Red compare try way. Bed standard again number wrong force. Stop exactly agent product economy someone. North describe site manager employee customer.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-jackson-davila-and-conley	Jackson, Davila and Conley	813	Consider with build either.	
+owen-newton	Owen-Newton	953	Red compare try way. Bed standard again number wrong force. Stop exactly agent product economy someone. North describe site manager employee customer.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+jackson-davila-and-conley	Jackson, Davila and Conley	813	Consider
+        with build either.	
 robbins-marsh-and-martin	Robbins, Marsh and Martin	709	Now never worry usually another ability concern hair. Fly lot six protect participant. Teach through head.	
-garcia-ray	Garcia-Ray	217	Laugh low follow fear. Politics main size fine.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-baker-santos	Baker-Santos	225	Compare certain use. Writer time lay word garden. Resource task interesting voice.	
-ingram-ferguson-and-rubio	Ingram, Ferguson and Rubio	753	Human summer field mean impact could exactly. Business read north project will. Left dream use Democrat.	
+garcia-ray	Garcia-Ray	217	Laugh low follow fear. Politics main size fine.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+baker-santos	Baker-Santos	225	Compare certain
+        use. Writer time lay word garden. Resource task interesting voice.	
+ingram-ferguson-and-rubio	Ingram, Ferguson and Rubio	753	Human summer field mean impact could exactly. Business read north project will. Left dream
+        use Democrat
+        .	
 burton-ltd	Burton Ltd	610	Cover couple speech bar cell measure movement finally. Nation pull inside.	
 anderson-arias-and-morrow	Anderson, Arias and Morrow	245	Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.	
-foster-rice	Foster-Rice	901	Either relate himself. Source TV data one general. Actually than seat eight.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+foster-rice	Foster-Rice	901	Either relate himself. Source TV data one general. Actually than seat eight.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
 weber-hernandez	Weber-Hernandez	681	Contain product south picture scientist.	
 moore-plc	Moore PLC	100	Magazine thing eight shake window might they organization. Environmental it bag green.	
-ayala-buchanan	Ayala-Buchanan	309	Make radio physical southern. His white on attention kitchen market upon. Represent west open seven. Particularly subject billion much score thank bag somebody.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-russo-gillespie-and-conrad	Russo, Gillespie and Conrad	398	South sound knowledge guy. Up I size anyone issue drop. Agent light significant mouth while.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-reynolds-greene	Reynolds-Greene	343	Effect win area officer office economy. Congress travel would resource difficult. Nice president mind dinner.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
-hall-davis	Hall-Davis	749	Adult go economic off into. Suddenly happy according only common. Father plant wrong free traditional.	
-pugh-ltd	Pugh Ltd	87	Believe reflect perform TV son.	http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
-graham-herring-and-lane	Graham, Herring and Lane	188	Enough attack return. Fall gas someone her another point those. Star public painting show concern.	
+ayala-buchanan	Ayala-Buchanan	309	Make radio physical southern. His white on attention kitchen market upon. Represent west
+        open seven
+        . Particularly subject billion much score thank bag somebody.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+russo-gillespie-and-conrad	Russo, Gillespie and Conrad	398	South sound knowledge guy. Up I size anyone issue
+        drop. Agent light significant mouth
+        while.	http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+reynolds-greene	Reynolds-Greene	343	Effect win area officer office economy. Congress travel would resource difficult. Nice president mind dinner.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_circle.jpg
+hall-davis	Hall-Davis	749	Adult go
+        economic
+        off into. Suddenly happy according only common. Father plant wrong free traditional.	
+pugh-ltd	Pugh Ltd	87	Believe reflect perform TV son.
+        http:
+        //www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg
+graham-herring-and-lane	Graham, Herring and Lane	188	Enough attack
+        return. Fall
+        gas someone her another point those. Star public painting show concern.	
 erickson-inc	Erickson Inc	267	Interesting environment owner beautiful school politics. General friend hair player dinner last administration teacher.	
 \.
 
@@ -194,7 +291,8 @@ erickson-inc	Erickson Inc	267	Interesting environment owner beautiful school pol
 -- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: joel
 --
 
-COPY public.jobs (id, title, salary, equity, company_handle) FROM stdin;
+COPY public.jobs
+        (id, title, salary, equity, company_handle) FROM stdin;
 1	Editor, magazine features	118000	0.149999999999999994	foster-rice
 2	Tree surgeon	130000	0.0800000000000000017	hall-davis
 3	Multimedia programmer	154000	0.0400000000000000008	owen-newton

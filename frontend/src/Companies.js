@@ -81,6 +81,7 @@ class Companies extends Component {
             id={page}
             className="button-page"
             key={page}
+            disabled={this.state.page === page && true}
             color="info"
           >
             {page + 1}

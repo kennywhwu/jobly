@@ -18,9 +18,11 @@ class Company extends Component {
 
   render() {
     return (
-      <div className="Companies">
-        <h3>{this.state.company.name}</h3>
-        <p>{this.state.company.description}</p>
+      <div className="Company">
+        <div className="header">
+          <h3>{this.state.company.name}</h3>
+          <p>{this.state.company.description}</p>
+        </div>
 
         {this.state.company.jobs.map(job => (
           <JobCard
