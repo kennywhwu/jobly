@@ -1,7 +1,7 @@
 # Jobly
 ![Jobly Snapshot](/jobly01.png?raw=true 'Jobly Snapshot')
 
-Jobly is a concept app to mimic the capabilities of LinkedIn.  Users can create accounts to log in and search for companies and corresponding jobs.  Users can then apply to any job.
+Jobly is a Javascript concept app to mimic the capabilities of LinkedIn.  Users can create accounts to log in and search for companies and corresponding jobs.  Users can then apply to any job.
 
 The website is built with a React frontend and Express backend.  Data is managed with Postgres.
 
@@ -16,6 +16,14 @@ From cloned repo folder, navigate to /backend folder and install dependencies:
 cd backend
 npm install
 ```
+
+Create Postgres database **jobly** and seed data:
+
+```
+createdb jobly
+psql jobly < data.sql
+```
+
 Start up node server:
 
 ```
