@@ -1,17 +1,17 @@
 // Routes component to define url renders
 
-import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import Companies from './Companies';
-import Company from './Company';
-import Jobs from './Jobs';
-import Login from './Login';
-import Profile from './Profile';
-import Home from './Home';
-import ProtectedRoute from './ProtectedRoute';
+import React, { Component } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Companies from "./Companies";
+import Company from "./Company";
+import Jobs from "./Jobs";
+import Login from "./Login";
+import Profile from "./Profile";
+import Home from "./Home";
+import ProtectedRoute from "./ProtectedRoute";
 
-// PrivateRoute requires current user to be logged in, otherwise redirects to /login page
-// LoggedInRoute requires current user to not be logged in, otherwise redirects to /companies page
+// ProtectedRoutes with isProtected = {true} requires current user to be logged in, otherwise redirects to /login page
+// ProtectedRoutes with isProtected = {false} requires current user to not be logged in, otherwise redirects to /companies page
 class Routes extends Component {
   render() {
     return (

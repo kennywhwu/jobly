@@ -1,8 +1,8 @@
 // CompanyCard for specific company information
 
-import React, { Component } from 'react';
-import { Card, CardBody, CardTitle, CardText, CardImg } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Card, CardBody, CardTitle, CardText, CardImg } from "reactstrap";
+import { Link } from "react-router-dom";
 
 class CompanyCard extends Component {
   render() {
@@ -21,11 +21,9 @@ class CompanyCard extends Component {
             </CardText>
           </CardBody>
           <CardImg
-            // className="card-img-top"
             src={`/SVG/${this.props.company.logo_url}`}
             alt={this.props.company.handle}
-            style={{ width: '100px', margin: 'auto' }}
-            // width="100px"
+            style={{ width: "100px", margin: "auto" }}
           />
         </Link>
       </Card>

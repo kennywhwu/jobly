@@ -1,8 +1,8 @@
 // JobCard component for individual jobs
 
-import React, { Component } from 'react';
-import { Button, Card, CardBody, CardTitle, CardText } from 'reactstrap';
-import JoblyApi from './JoblyApi';
+import React, { Component } from "react";
+import { Button, Card, CardBody, CardTitle, CardText } from "reactstrap";
+import JoblyApi from "./JoblyApi";
 
 class JobCard extends Component {
   constructor(props) {
@@ -15,15 +15,11 @@ class JobCard extends Component {
     this.apply = this.apply.bind(this);
   }
 
-  async componentDidMount() {
-    // let appliedJob = await JoblyApi.getJob(this.props.job.id);
-  }
-
   async apply() {
     let message = await JoblyApi.apply(this.props.job.id, this.props.job.state);
     if (message) {
       this.setState({ applied: message, disabled: true });
-      this.props.triggerAlert('success', 'Applied to job!');
+      this.props.triggerAlert("success", "Applied to job!");
       this.props.fetchUser();
     }
   }
@@ -46,7 +42,7 @@ class JobCard extends Component {
             onClick={this.apply}
             disabled={this.state.applied ? true : false}
           >
-            {this.state.applied ? 'Applied' : 'Apply'}
+            {this.state.applied ? "Applied" : "Apply"}
           </Button>
         </CardBody>
       </Card>

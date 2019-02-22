@@ -1,35 +1,30 @@
 // Helper class to make axios requests to database fron front-end
 
-import axios from 'axios';
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
+import axios from "axios";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 class JoblyApi {
-  static async request(endpoint, params = {}, verb = 'get') {
-    // for now, hardcode a token for user "testuser"
-    // let _token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc' +
-    //   '3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1NDE1NjQ2Nzl9.LYDHSkl81gEm' +
-    //   '7jfHv9wJhzD4ndpuBkSzBan8Nirb6UY';
-    let _token = JSON.parse(localStorage.getItem('token'));
+  static async request(endpoint, params = {}, verb = "get") {
+    let _token = JSON.parse(localStorage.getItem("token"));
 
-    console.debug('API Call:', endpoint, params, verb);
+    console.debug("API Call:", endpoint, params, verb);
 
     let q;
 
-    if (verb === 'get') {
+    if (verb === "get") {
       q = axios.get(`${BASE_URL}/${endpoint}`, {
-        params: { _token, ...params }
+        params: { _token, ...params },
       });
-    } else if (verb === 'post') {
+    } else if (verb === "post") {
       q = axios.post(`${BASE_URL}/${endpoint}`, { _token, ...params });
-    } else if (verb === 'patch') {
+    } else if (verb === "patch") {
       q = axios.patch(`${BASE_URL}/${endpoint}`, { _token, ...params });
     }
 
     try {
       return (await q).data;
     } catch (err) {
-      console.error('API Error:', err.response);
+      console.error("API Error:", err.response);
       let message = err.response.data.message;
       throw Array.isArray(message) ? message : [message];
     }
@@ -66,12 +61,12 @@ class JoblyApi {
   }
 
   static async login(user) {
-    let res = await this.request(`login`, user, 'post');
+    let res = await this.request(`login`, user, "post");
     return res.token;
   }
 
   static async register(user) {
-    let res = await this.request(`users`, user, 'post');
+    let res = await this.request(`users`, user, "post");
     return res.token;
   }
 
@@ -81,12 +76,12 @@ class JoblyApi {
   }
 
   static async updateUser(user, username) {
-    let res = await this.request(`users/${username}`, user, 'patch');
+    let res = await this.request(`users/${username}`, user, "patch");
     return res.user;
   }
 
   static async apply(id, state) {
-    let res = await this.request(`jobs/${id}/apply`, { state }, 'post');
+    let res = await this.request(`jobs/${id}/apply`, { state }, "post");
     return res.message;
   }
 

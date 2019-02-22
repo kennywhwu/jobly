@@ -1,10 +1,10 @@
 // Jobs component for list of jobs
 
-import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-import JoblyApi from './JoblyApi';
-import JobCard from './JobCard';
-import Search from './Search';
+import React, { Component } from "react";
+import { Button } from "reactstrap";
+import JoblyApi from "./JoblyApi";
+import JobCard from "./JobCard";
+import Search from "./Search";
 
 class Jobs extends Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class Jobs extends Component {
 
   // Retrieve all jobs when component mounts
   async componentDidMount() {
-    // [{handle:, name:...},{},...]
     let results = await JoblyApi.getJobs();
     this.setState({ jobs: results });
   }

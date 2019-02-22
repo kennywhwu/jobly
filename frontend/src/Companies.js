@@ -1,10 +1,10 @@
 // Companies component for list of companies
 
-import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-import JoblyApi from './JoblyApi';
-import CompanyCard from './CompanyCard';
-import Search from './Search';
+import React, { Component } from "react";
+import { Button } from "reactstrap";
+import JoblyApi from "./JoblyApi";
+import CompanyCard from "./CompanyCard";
+import Search from "./Search";
 
 class Companies extends Component {
   constructor(props) {
@@ -20,13 +20,8 @@ class Companies extends Component {
 
   // Get list of companies when component first mounts
   async componentDidMount() {
-    // [{handle:, name:...},{},...]
-    // try {
     let companyResults = await JoblyApi.getCompanies();
     this.setState({ companies: companyResults });
-    // } catch (err) {
-    //   this.props.triggerAlert(''
-    // }
   }
 
   // Filter rendered companies list based on search term
